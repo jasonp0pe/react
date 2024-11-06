@@ -1,0 +1,16 @@
+/* Header.css */
+
+header {
+    text-align: center;
+    padding: 40px 0;
+    background-image: linear-gradient(90deg, var(--highlight-color), var(--gold-color));
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+h1 {
+    font-size: 3rem;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}

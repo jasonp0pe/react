@@ -1,0 +1,26 @@
+/* AllPieces.css */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: var(--secondary-bg);
+}
+
+header {
+    text-align: center;
+    padding: 40px 0;
+    background-image: linear-gradient(90deg, var(--highlight-color), var(--gold-color));
+    color: white;
+}
+
+.all-pieces .piece {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.all-pieces img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}

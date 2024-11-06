@@ -1,0 +1,23 @@
+:root {
+  --primary-bg: #440b0b;
+  --secondary-bg: #7a775a;
+  --text-color: #333;
+  --highlight-color: #1a1a1a;
+  --gold-color: #DAA520;
+  --link-color: #555555;
+  --link-hover-color: #DAA520;
+  --border-color: #ccc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lora', serif;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  padding: 20px;
+}
