@@ -1,4 +1,3 @@
-// src/components/Home.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
@@ -11,6 +10,9 @@ import LightRook from '../images/LightRook.jpg';
 import LightBishop from '../images/LightBishop.jpg';
 import LightKnight from '../images/LightKnight.jpg';
 import LightPawn from '../images/LightPawn.jpg';
+
+// Import ChessPiece component
+import ChessPiece from './ChessPiece';
 
 function Home() {
   const [isNavOpen, setNavOpen] = useState(false); // State for navbar toggle
@@ -91,47 +93,42 @@ function Home() {
 
       {/* Chess Pieces Section */}
       <section className="chess-cards">
-        <div className="card">
-          <img src={LightKing} alt="King Icon" />
-          <h3>King</h3>
-          <p>A King can move one square in any direction.</p>
-          <Link to="/king" className="learn-more">Learn More</Link>
-        </div>
-
-        <div className="card">
-          <img src={LightQueen} alt="Queen Icon" />
-          <h3>Queen</h3>
-          <p>The Queen is the most powerful piece on the board.</p>
-          <Link to="/queen" className="learn-more">Learn More</Link>
-        </div>
-
-        <div className="card">
-          <img src={LightRook} alt="Rook Icon" />
-          <h3>Rook</h3>
-          <p>The Rook moves horizontally or vertically through any number of unoccupied squares.</p>
-          <Link to="/rook" className="learn-more">Learn More</Link>
-        </div>
-
-        <div className="card">
-          <img src={LightBishop} alt="Bishop Icon" />
-          <h3>Bishop</h3>
-          <p>The Bishop moves diagonally through any number of unoccupied squares.</p>
-          <Link to="/bishop" className="learn-more">Learn More</Link>
-        </div>
-
-        <div className="card">
-          <img src={LightKnight} alt="Knight Icon" />
-          <h3>Knight</h3>
-          <p>The Knight moves in an "L" shape and can jump over other pieces.</p>
-          <Link to="/knight" className="learn-more">Learn More</Link>
-        </div>
-
-        <div className="card">
-          <img src={LightPawn} alt="Pawn Icon" />
-          <h3>Pawn</h3>
-          <p>The Pawn moves forward one square or two squares on its first move.</p>
-          <Link to="/pawn" className="learn-more">Learn More</Link>
-        </div>
+        <ChessPiece 
+          image={LightKing}
+          name="King"
+          description="A King can move one square in any direction."
+          link="/king"
+        />
+        <ChessPiece 
+          image={LightQueen}
+          name="Queen"
+          description="The Queen is the most powerful piece on the board."
+          link="/queen"
+        />
+        <ChessPiece 
+          image={LightRook}
+          name="Rook"
+          description="The Rook moves horizontally or vertically through any number of unoccupied squares."
+          link="/rook"
+        />
+        <ChessPiece 
+          image={LightBishop}
+          name="Bishop"
+          description="The Bishop moves diagonally through any number of unoccupied squares."
+          link="/bishop"
+        />
+        <ChessPiece 
+          image={LightKnight}
+          name="Knight"
+          description="The Knight moves in an 'L' shape and can jump over other pieces."
+          link="/knight"
+        />
+        <ChessPiece 
+          image={LightPawn}
+          name="Pawn"
+          description="The Pawn moves forward one square or two squares on its first move."
+          link="/pawn"
+        />
       </section>
 
       {/* Explore More Section */}
@@ -158,7 +155,9 @@ function Home() {
           <textarea id="message" name="message" required></textarea>
           
           <button type="submit">Submit</button>
-          <p id="form-message" style={{ color: formMessage.includes("Thank you") ? "green" : "red" }}>{formMessage}</p>
+          <p id="form-message" style={{ color: formMessage.includes("Thank you") ? "green" : "red" }}>
+            {formMessage}
+          </p>
         </form>
       </section>
 
