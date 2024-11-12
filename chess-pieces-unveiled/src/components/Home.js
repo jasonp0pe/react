@@ -22,7 +22,7 @@ function Home() {
 
    useEffect(() => {
     axios
-      .get('http://localhost:3001/chess-pieces')  
+      .get('http://localhost:10000/chess-pieces')  
       .then((response) => {
         setPieces(response.data);  
       })
