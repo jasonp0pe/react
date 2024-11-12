@@ -1,6 +1,7 @@
-import React from "react";
+import React, { } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
+
+import Home from "./components/Home"; 
 import King from "./components/King";
 import Queen from "./components/Queen";
 import Rook from "./components/Rook";
@@ -11,12 +12,15 @@ import History from "./components/History";
 import News from "./components/News";
 import Stories from "./components/Stories";
 import AllPieces from "./components/AllPieces";
-import "./App.css"; // Ensure this imports your main styles
+import ChessPieces from "./components/ChessPieces";  
+
+import "./App.css"; // Your global CSS file
 
 function App() {
   return (
     <Router>
       <div className="App">
+        {/* Routing */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/king" element={<King />} />
@@ -29,6 +33,7 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/stories" element={<Stories />} />
           <Route path="/allpieces" element={<AllPieces />} />
+          <Route path="/chess-pieces" element={<ChessPieces />} />
         </Routes>
       </div>
     </Router>

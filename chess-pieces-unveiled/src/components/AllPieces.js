@@ -1,3 +1,4 @@
+
 // src/components/AllPieces.js
 import React, { useState } from 'react';
 import './AllPieces.css'; // Ensure you have your CSS for styling

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; 
 import './Home.css';
 
 // Import images
@@ -15,8 +16,20 @@ import LightPawn from '../images/LightPawn.jpg';
 import ChessPiece from './ChessPiece';
 
 function Home() {
+  const [setPieces] = useState([]); // State for chess pieces data
   const [isNavOpen, setNavOpen] = useState(false); // State for navbar toggle
   const [formMessage, setFormMessage] = useState(""); // State for form message
+
+   useEffect(() => {
+    axios
+      .get('http://localhost:3001/chess-pieces')  
+      .then((response) => {
+        setPieces(response.data);  
+      })
+      .catch((error) => {
+        console.error('Error fetching chess pieces:', error);
+      });
+  }, [setPieces]);  
 
   // Handle form submission
   const handleSubmit = async (event) => {
