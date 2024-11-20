@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
 
-// Import images
+// Image imports for chess pieces
 import ChessOverview from '../images/ChessPieces.jpg';
-import ChessPiece from './ChessPiece';
+import './ChessPieces.js';
 
 function Home() {
   const [pieces, setPieces] = useState([]); // State for chess pieces data
@@ -133,26 +133,15 @@ function Home() {
       <section className="overview">
         <img src={ChessOverview} alt="Chess Overview" />
         <div className="pieces-list">
- 
           {pieces.map((piece) => (
             <Link to={`/${piece.name.toLowerCase()}`} className="chess-piece" key={piece._id}>
-              {piece.name}
+              <img src={`http://localhost:10000${piece.image}`} alt={`${piece.name} Icon`} className="chess-piece-icon" />
+              <h3>{piece.name}</h3>
+              <p>{piece.description}</p>
+              <a href={`/${piece.name.toLowerCase()}`}>Learn More</a>
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Chess Pieces Section */}
-      <section className="chess-cards">
-        {pieces.map((piece) => (
-          <ChessPiece 
-            key={piece._id}
-            image={piece.image}
-            name={piece.name}
-            description={piece.description}
-            link={`/${piece.name.toLowerCase()}`}
-          />
-        ))}
       </section>
 
       {/* Add New Chess Piece Form */}
@@ -167,7 +156,6 @@ function Home() {
             value={newPiece.name}
             onChange={handleInputChange}
           />
-          {formErrors.name && <p className="error">{formErrors.name}</p>}
 
           <label htmlFor="description">Description:</label>
           <input 
@@ -177,7 +165,6 @@ function Home() {
             value={newPiece.description}
             onChange={handleInputChange}
           />
-          {formErrors.description && <p className="error">{formErrors.description}</p>}
 
           <label htmlFor="image">Upload Image:</label>
           <input 
@@ -187,7 +174,6 @@ function Home() {
             accept="image/*" 
             onChange={handleFileChange}
           />
-          {formErrors.image && <p className="error">{formErrors.image}</p>}
 
           <button type="submit">Add Piece</button>
         </form>

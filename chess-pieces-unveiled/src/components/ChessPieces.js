@@ -1,37 +1,37 @@
 // src/components/ChessPieces.js
 import React from 'react';
-import './ChessPieces.css'; // Import the styles for ChessPieces
+import './ChessPieces.css';
 
 // Data for chess pieces (You can update the image paths as needed)
 const piecesData = [
   {
     name: 'King',
-    image: '/images/ChessKing.gif', // Update with actual image path
+    image: '/images/LightKing.jpg', // Update with actual image path
     description: 'The King can move one square in any direction.',
   },
   {
     name: 'Queen',
-    image: '/images/ChessQueen.gif', // Update with actual image path
+    image: '/images/LightQueen.jpg', // Update with actual image path
     description: 'The Queen can move any number of squares in any direction.',
   },
   {
     name: 'Rook',
-    image: '/images/ChessRook.gif', // Update with actual image path
+    image: '/images/LightRook.jpg', // Update with actual image path
     description: 'The Rook moves horizontally or vertically any number of squares.',
   },
   {
     name: 'Bishop',
-    image: '/images/ChessBishop.gif', // Update with actual image path
+    image: '/images/LightBishop.jpg', // Update with actual image path
     description: 'The Bishop moves diagonally any number of squares.',
   },
   {
     name: 'Knight',
-    image: '/images/ChessKnight.gif', // Update with actual image path
+    image: '/images/LightKnight.jpg', // Update with actual image path
     description: 'The Knight moves in an "L" shape and can jump over other pieces.',
   },
   {
     name: 'Pawn',
-    image: '/images/ChessPawn.gif', // Update with actual image path
+    image: '/images/LightPawn.jpg', // Update with actual image path
     description: 'The Pawn moves forward one square or two squares on its first move.',
   },
 ];
