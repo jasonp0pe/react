@@ -20,7 +20,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:10000/chess-pieces')  // Ensure the server endpoint is correct
+      .get("https://chess-api-pb0g.onrender.com/chess-pieces")  // Ensure the server endpoint is correct
       .then((response) => {
         setPieces(response.data);
       })
@@ -44,7 +44,7 @@ function Home() {
       formData.append('image', newPiece.image); // Append the image file to the FormData
 
       try {
-        const response = await axios.post("http://localhost:10000/chess-pieces", formData, {
+        const response = await axios.post("https://chess-api-pb0g.onrender.com/chess-pieces", formData, {
           headers: {
             'Content-Type': 'multipart/form-data' 
           }
@@ -135,7 +135,7 @@ function Home() {
         <div className="pieces-list">
           {pieces.map((piece) => (
             <Link to={`/${piece.name.toLowerCase()}`} className="chess-piece" key={piece._id}>
-              <img src={`http://localhost:10000${piece.image}`} alt={`${piece.name} Icon`} className="chess-piece-icon" />
+              <img src={`https://chess-api-pb0g.onrender.com/${piece.image}`} alt={`${piece.name} Icon`} className="chess-piece-icon" />
               <h3>{piece.name}</h3>
               <p>{piece.description}</p>
               <a href={`/${piece.name.toLowerCase()}`}>Learn More</a>
