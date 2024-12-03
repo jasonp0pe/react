@@ -5,7 +5,6 @@ import './Home.css';
 
 // Image imports for chess pieces
 import ChessOverview from '../images/ChessPieces.jpg';
-import './ChessPieces.js';
 
 function Home() {
   const [pieces, setPieces] = useState([]); // State for chess pieces data
@@ -20,7 +19,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://chess-api-pb0g.onrender.com/chess-pieces")  // Ensure the server endpoint is correct
+      .get("https://chess-api-pb0g.onrender.com/chess-pieces")
       .then((response) => {
         setPieces(response.data);
       })
@@ -33,7 +32,6 @@ function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Validate the form before submitting
     const errors = validateForm(newPiece);
     setFormErrors(errors);
 
@@ -41,12 +39,12 @@ function Home() {
       const formData = new FormData();
       formData.append('name', newPiece.name);
       formData.append('description', newPiece.description);
-      formData.append('image', newPiece.image); // Append the image file to the FormData
+      formData.append('image', newPiece.image);
 
       try {
         const response = await axios.post("https://chess-api-pb0g.onrender.com/chess-pieces", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data' 
+            'Content-Type': 'multipart/form-data'
           }
         });
 
@@ -101,6 +99,28 @@ function Home() {
     });
   };
 
+  // Handle the edit button click
+  const handleEdit = (id) => {
+    const piece = pieces.find(piece => piece._id === id);
+    setNewPiece({
+      name: piece.name,
+      description: piece.description,
+      image: piece.image // You might want to store the image URL here for editing
+    });
+  };
+
+  // Handle the delete button click
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`https://chess-api-pb0g.onrender.com/chess-pieces/${id}`);
+      if (response.status === 200) {
+        setPieces(pieces.filter(piece => piece._id !== id)); // Remove the deleted piece from the state
+      }
+    } catch (error) {
+      console.error('Error deleting chess piece:', error);
+    }
+  };
+
   return (
     <div className="container">
       {/* Navigation Bar */}
@@ -134,12 +154,13 @@ function Home() {
         <img src={ChessOverview} alt="Chess Overview" />
         <div className="pieces-list">
           {pieces.map((piece) => (
-            <Link to={`/${piece.name.toLowerCase()}`} className="chess-piece" key={piece._id}>
+            <div className="chess-piece" key={piece._id}>
               <img src={`https://chess-api-pb0g.onrender.com/${piece.image}`} alt={`${piece.name} Icon`} className="chess-piece-icon" />
               <h3>{piece.name}</h3>
               <p>{piece.description}</p>
-              <a href={`/${piece.name.toLowerCase()}`}>Learn More</a>
-            </Link>
+              <button onClick={() => handleEdit(piece._id)}>Edit</button>
+              <button onClick={() => handleDelete(piece._id)}>Delete</button>
+            </div>
           ))}
         </div>
       </section>
