@@ -14,9 +14,11 @@ function Home() {
   const [newPiece, setNewPiece] = useState({
     name: '',
     description: '',
-    image: null // Store the image file itself
+    image: null, // Store the image file itself
+    id: null, // Store the ID of the piece being edited
   });
 
+  // Fetching chess pieces from the server
   useEffect(() => {
     axios
       .get("https://chess-api-pb0g.onrender.com/chess-pieces")
@@ -42,61 +44,52 @@ function Home() {
       formData.append('image', newPiece.image);
 
       try {
-        const response = await axios.post("https://chess-api-pb0g.onrender.com/chess-pieces", formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
+        const response = newPiece.id
+          ? await axios.put(`https://chess-api-pb0g.onrender.com/chess-pieces/${newPiece.id}`, formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            })
+          : await axios.post('https://chess-api-pb0g.onrender.com/chess-pieces', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            });
 
         if (response.status === 200) {
-          setFormMessage("Failed to add");
-          setNewPiece({ name: '', description: '', image: '' }); // Reset the form
+          setFormMessage('Chess piece updated successfully!');
+          setPieces(
+            pieces.map((p) =>
+              p._id === newPiece.id ? response.data : p
+            )
+          );
+          setNewPiece({ name: '', description: '', image: null, id: null }); // Reset form
         } else {
-          setFormMessage("Chess piece added successfully!");
+          setFormMessage('Chess piece updated successfully!');
         }
       } catch (error) {
-        setFormMessage("Oops! Something went wrong.");
+        setFormMessage('Oops! Something went wrong.');
       }
     } else {
-      setFormMessage("Please correct the errors in the form.");
+      setFormMessage('Please correct the errors in the form.');
     }
   };
 
-  // Validate the form
+  // Validate form input
   const validateForm = (piece) => {
     const errors = {};
-
-    if (!piece.name) {
-      errors.name = 'Name is required';
-    }
-
-    if (!piece.description) {
-      errors.description = 'Description is required';
-    }
-
-    if (!piece.image) {
-      errors.image = 'Image is required';
-    }
-
+    if (!piece.name) errors.name = 'Name is required';
+    if (!piece.description) errors.description = 'Description is required';
+    if (!piece.image) errors.image = 'Image is required';
     return errors;
   };
 
-  // Handle input change
+  // Handle input changes for text fields
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setNewPiece({
-      ...newPiece,
-      [name]: value
-    });
+    setNewPiece({ ...newPiece, [name]: value });
   };
 
   // Handle file input change
   const handleFileChange = (event) => {
     const { files } = event.target;
-    setNewPiece({
-      ...newPiece,
-      image: files[0] // Store the first file from the file input
-    });
+    setNewPiece({ ...newPiece, image: files[0] });
   };
 
   // Handle the edit button click
@@ -105,7 +98,8 @@ function Home() {
     setNewPiece({
       name: piece.name,
       description: piece.description,
-      image: piece.image // You might want to store the image URL here for editing
+      image: piece.image, // You might want to store the image URL here for editing
+      id: piece._id, // Store the ID of the piece to be updated
     });
   };
 
@@ -167,7 +161,7 @@ function Home() {
 
       {/* Add New Chess Piece Form */}
       <section className="add-chess-piece">
-        <h2>Add a New Chess Piece</h2>
+        <h2>{newPiece.id ? 'Edit Chess Piece' : 'Add a New Chess Piece'}</h2>
         <form id="add-piece-form" onSubmit={handleSubmit}>
           <label htmlFor="name">Name:</label>
           <input 
@@ -196,7 +190,7 @@ function Home() {
             onChange={handleFileChange}
           />
 
-          <button type="submit">Add Piece</button>
+          <button type="submit">{newPiece.id ? 'Update Piece' : 'Add Piece'}</button>
         </form>
         <p>{formMessage}</p>
       </section>
